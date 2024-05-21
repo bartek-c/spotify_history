@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "spotify"
+version = "0.1.0"
+description = ""
+authors = ["bartek-c <bartek.calka96@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "^2.2.1"
+numpy = "^1.26.4"
+matplotlib = "^3.8.3"
+seaborn = "^0.13.2"
+plotly = "^5.21.0"
+bokeh = "^3.4.0"
+requests = "^2.31.0"
+jupyterlab = "^4.1.7"
+python-dotenv = "^1.0.1"
+bar-chart-race = "^0.1.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
