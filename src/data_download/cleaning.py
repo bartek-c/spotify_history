@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import math
+import ast
 from itertools import chain
 
 def process_liked_songs(df):
@@ -34,7 +35,8 @@ def process_dates(df):
         5: 'Saturday',
         6: 'Sunday'
     }
-    
+
+    df['day_of_week_index'] = df['day_of_week_added']
     df['day_of_week_added'] = df['day_of_week_added'].apply(lambda x: days_of_week_mapping[x])
 
     month_mapping = {
@@ -52,7 +54,7 @@ def process_dates(df):
         12: 'December'
     }
     
-    
+    df['month_index'] = df['month_added']
     df['month_added'] = df['month_added'].apply(lambda x: month_mapping[x])
     
     df['date_added'] = df['date_added'].dt.date
@@ -86,7 +88,9 @@ def reorder_columns(df):
      'date_added',
      'year_added',
      'month_added',
+     'month_index',
      'day_of_week_added',
+     'day_of_week_index',
      'time_added',
      'duration_s',
      'duration_min',
@@ -104,6 +108,8 @@ def reorder_columns(df):
 
 def extract_genres(df):
     lists_of_genres = df['artist_genres'].to_list()
+    # Convert the string representation of lists into actual lists
+    lists_of_genres = [ast.literal_eval(genre_str) for genre_str in lists_of_genres]
     genres = sorted(set(list(chain.from_iterable(lists_of_genres))))
 
     genres_df = df[['artist_id', 'artist_genres']].copy()
