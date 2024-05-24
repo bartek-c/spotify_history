@@ -122,4 +122,6 @@ def extract_genres(df):
     df_clean = pd.merge(df, genres_df, on='artist_id', how='inner')
     df_clean.drop(columns='artist_genres', inplace=True)
 
+    df_clean = df_clean.rename(columns={'electro':'electronic', 'alte':'alternative'})
+
     return df_clean
