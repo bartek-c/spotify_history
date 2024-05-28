@@ -20,12 +20,16 @@ def process_liked_songs(df):
     
 
 def process_dates(df):
+    # set dtype of date_added column
     df.date_added = pd.to_datetime(df.date_added)
+
+    # extract year, month, time and day of week from date_added
     df['year_added'] = df['date_added'].dt.year
     df['month_added'] = df['date_added'].dt.month
     df['time_added'] = df['date_added'].dt.time
     df['day_of_week_added'] = df['date_added'].dt.dayofweek
-    
+
+    # add column to convert day of week index to name
     days_of_week_mapping = {
         0: 'Monday',
         1: 'Tuesday',
@@ -39,6 +43,7 @@ def process_dates(df):
     df['day_of_week_index'] = df['day_of_week_added']
     df['day_of_week_added'] = df['day_of_week_added'].apply(lambda x: days_of_week_mapping[x])
 
+    # add column to convert month index to name
     month_mapping = {
         1: 'January',
         2: 'February',
@@ -53,7 +58,7 @@ def process_dates(df):
         11: 'November',
         12: 'December'
     }
-    
+
     df['month_index'] = df['month_added']
     df['month_added'] = df['month_added'].apply(lambda x: month_mapping[x])
     
